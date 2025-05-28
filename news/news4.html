@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Flat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-0 bg-transparent">  
+  <div>
+    <div class="h-48 overflow-hidden">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtBWWrtOnM_IT2SS20klj2vjalenadNhYO3dukVqdmyuARtogEkVnsyUU&s=10" alt="News Image" class="w-full h-full object-cover">
+    </div>
+    <div class="py-3 px-4">
+      <h2 class="text-xl font-bold mb-1 text-gray-800">Developer news</h2>
+      <span class="inline-block text-xs font-semibold text-yellow-600 mb-2">
+      <p class="text-gray-600 text-sm mb-4">This is jewel Rana a short description or summary about the news article to grab attention and encourage the reader to click through.</p>
+      <button id="readMoreBtn" class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition">Read More</button>
+    </div>
+  </div>  
+
+  <script>
+    document.getElementById('readMoreBtn').addEventListener('click', function() {
+      window.open('https://example.com', '_blank');
+    });
+  </script>
+</body>
+</html>
