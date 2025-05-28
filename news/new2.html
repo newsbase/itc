@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Card</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-4">  
+  <div class="max-w-sm bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div class="h-48 overflow-hidden rounded-t-2xl">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtBWWrtOnM_IT2SS20klj2vjalenadNhYO3dukVqdmyuARtogEkVnsyUU&s=10" alt="News Image" class="w-full h-full object-cover">
+    </div>
+    <div class="p-5">
+      <h2 class="text-xl font-bold mb-2 text-gray-800">Breaking News Headline</h2>
+      <p class="text-gray-600 text-sm mb-4">This is a short description or summary about the news article to grab attention and encourage the reader to click through.</p>
+      <button id="readMoreBtn" class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">Read More</button>
+    </div>
+  </div>  
+  <script>
+    document.getElementById('readMoreBtn').addEventListener('click', function() {
+      window.location.href = 'https://example.com';
+    });
+  </script>
+</body>
+</html>
