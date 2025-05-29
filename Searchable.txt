@@ -1,1 +1,2 @@
 news1 = Breaking News
+news2 = uPin How To User
