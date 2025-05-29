@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>News Flat</title>
+  <script src='https://cdn.tailwindcss.com'></script>
+</head>
+<body class='p-0 bg-transparent'>
+  <div>
+    <div class='h-48 overflow-hidden'>
+      <img src='https://raw.githubusercontent.com/newsbase/itc/be9affde6d496a848b604aac8ad181b0a8ccb712/images/images%20(9).jpeg' alt='News Image' class='w-full h-full object-cover'>
+    </div>
+    <div class='py-3 px-4'>
+      <h2 class='text-xl font-bold mb-1 text-gray-800'>New By SMK</h2>
+      <p class='text-gray-600 text-sm mb-4'>You're not going to be a great day of school and I have a great day of school and I have a great day of school and I have</p>
+      <button id='readMoreBtn' class='px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition'>Read More</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById('readMoreBtn').addEventListener('click', function() {
+      window.open('https://example.com', '_blank');
+    });
+  </script>
+</body>
+</html>
