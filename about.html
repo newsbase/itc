@@ -90,22 +90,34 @@
   <script>
     function makeCall() {
       const number = "+88001723580852";
-      window.location.href = "tel:" + number;
+      try {
+        window.location.href = "tel:" + number;
+      } catch (e) {
+        alert("Dial this number manually: " + number);
+      }
     }
 
     function openFacebook() {
       const url = "https://facebook.com/me.jnrana";
       const fbIntent = "fb://facewebmodal/f?href=" + url;
-      window.location.href = fbIntent;
-      setTimeout(() => { window.location.href = url; }, 500);
+      try {
+        window.location.href = fbIntent;
+        setTimeout(() => { window.location.href = url; }, 500);
+      } catch {
+        window.location.href = url;
+      }
     }
 
     function openWhatsApp() {
       const number = "8801797740021";
       const webUrl = "https://wa.me/" + number;
       const appIntent = "intent://send?phone=" + number + "#Intent;package=com.whatsapp;scheme=smsto;end";
-      window.location.href = appIntent;
-      setTimeout(() => { window.location.href = webUrl; }, 500);
+      try {
+        window.location.href = appIntent;
+        setTimeout(() => { window.location.href = webUrl; }, 500);
+      } catch {
+        window.location.href = webUrl;
+      }
     }
 
     function openEmail() {
