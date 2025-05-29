@@ -1,3 +1,1 @@
-news1 = B Head
-news2 = N Solve
-news3 = Breaking
+news1 = Breaking News
