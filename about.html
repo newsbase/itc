@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About - Md. Jewel Rana</title>
   <style>
     body {
@@ -19,7 +19,7 @@
       background: #ffffffcc;
       padding: 20px;
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
 
@@ -38,8 +38,9 @@
     }
 
     p {
-      font-size: 16px;
+      font-size: 15px;
       margin-bottom: 20px;
+      line-height: 1.6;
     }
 
     .button-grid {
@@ -49,13 +50,14 @@
     }
 
     .btn {
-      display: block;
       text-decoration: none;
       color: white;
       font-weight: bold;
       padding: 14px 0;
       border-radius: 10px;
-      transition: 0.3s;
+      display: inline-block;
+      transition: 0.3s ease;
+      font-size: 16px;
     }
 
     .call { background-color: #43a047; }
@@ -64,19 +66,21 @@
     .email { background-color: #ef6c00; }
 
     .btn:hover {
-      opacity: 0.85;
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <img src="https://raw.githubusercontent.com/newsbase/itc/refs/heads/main/profile.jpg" alt="Md. Jewel Rana" class="profile-img">
+    <img src="https://raw.githubusercontent.com/newsbase/itc/refs/heads/main/profile.jpg" alt="Md. Jewel Rana" class="profile-img" />
     <h1>Md. Jewel Rana</h1>
-    <p>The is a great day of school and I have a great day of the most of🎒📚 the way you can I get it done with a great👍 day I have a great day and I have been a great👍 day of🎒📚 school and not just got a new phone is a👍 new one</p>
+    <p>
+      Next time setup. The is a great day of school and I have a great day of the most of🎒📚 the way you can I get it done with a great👍 day I have a great day and I have been a great👍 day of🎒📚 school and not just got a new phone is a👍 new one.
+    </p>
 
     <div class="button-grid">
-      <a class="btn call" href="tel:+88001723580852">Call</a>
+      <a class="btn call" href="#" onclick="makeCall()">Call</a>
       <a class="btn facebook" href="#" onclick="openFacebook()">Facebook</a>
       <a class="btn whatsapp" href="#" onclick="openWhatsApp()">WhatsApp</a>
       <a class="btn email" href="#" onclick="openEmail()">Email</a>
@@ -84,35 +88,49 @@
   </div>
 
   <script>
-    function openWhatsApp() {
-      const number = "8801797740021";
-      const url = "https://wa.me/" + number;
-      const appIntent = "intent://send?phone=" + number + "#Intent;package=com.whatsapp;scheme=smsto;end";
-
-      window.location.href = appIntent;
-      setTimeout(() => { window.location.href = url; }, 500);
+    function makeCall() {
+      const number = "+88001723580852";
+      try {
+        window.location.href = "tel:" + number;
+      } catch (e) {
+        alert("Dial this number manually: " + number);
+      }
     }
 
     function openFacebook() {
       const url = "https://facebook.com/me.jnrana";
-      const appIntent = "fb://facewebmodal/f?href=" + url;
+      const fbIntent = "fb://facewebmodal/f?href=" + url;
 
-      window.location.href = appIntent;
-      setTimeout(() => { window.location.href = url; }, 500);
+      try {
+        window.location.href = fbIntent;
+        setTimeout(() => { window.location.href = url; }, 500);
+      } catch {
+        window.location.href = url;
+      }
+    }
+
+    function openWhatsApp() {
+      const number = "8801797740021";
+      const webUrl = "https://wa.me/" + number;
+      const appIntent = "intent://send?phone=" + number + "#Intent;package=com.whatsapp;scheme=smsto;end";
+
+      try {
+        window.location.href = appIntent;
+        setTimeout(() => { window.location.href = webUrl; }, 500);
+      } catch {
+        window.location.href = webUrl;
+      }
     }
 
     function openEmail() {
       const email = "jewel.raj.bp@gmail.com";
+      const gmailIntent = "googlegmail://co?to=" + email;
       const mailto = "mailto:" + email;
 
       try {
-        window.location.href = "googlegmail://co?to=" + email;
-        setTimeout(() => {
-          // fallback to default mail client
-          window.location.href = mailto;
-        }, 500);
+        window.location.href = gmailIntent;
+        setTimeout(() => { window.location.href = mailto; }, 500);
       } catch {
-        // fallback to copying
         copyToClipboard(email);
         alert("Email copied to clipboard: " + email);
       }
