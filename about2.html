@@ -1,247 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Md. Jewel Rana - Profile Card</title>
+  <meta charset="UTF-8">
+  <title>Image Hover Animation</title>
 
-  <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: "Jost", sans-serif;
-      background: url("https://images.unsplash.com/photo-1485217988980-11786ced9454") no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#0396FF;
     }
-
-    .card {
-      max-width: 360px;
-      position: relative;
-      background: #07182E;
-      border-radius: 16px;
-      overflow: hidden;
-      text-align: center;
-      color: white;
-      z-index: 1;
+    .container{
+      height:500px;
+      display:flex;
+      min-width:400px;
+      align-items:flex-end;
+      justify-content:center;
+      margin-top:-55px;
     }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -15%;
-      left: 50%;
-      transform: translateX(-50%) rotate(0deg);
-      width: 120px;
-      height: 130%;
-      background: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
-      animation: rotateBG 3s linear infinite;
-      border-radius: 20px;
-      z-index: 0;
+    .icon-image{
+      position:relative;
+      height:70px;
+      width:70px;
+      margin:0 5px;
+      cursor:pointer;
+      box-shadow:0 5px 10px rgba(0,0,0,0.25);
+      border-radius:50%;
+      background:#fff;
     }
-
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 5px;
-      background: #ffffff;
-      border-radius: 11px;
-      z-index: 1;
+    .icon-image .icon img{
+      position:absolute;
+      height:95%;
+      width:95%;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      object-fit:cover;
+      border-radius:50%;
+      border:3px solid #0396FF;
     }
-
-    @keyframes rotateBG {
-      0% {
-        transform: translateX(-50%) rotate(0deg);
-      }
-      100% {
-        transform: translateX(-50%) rotate(360deg);
-      }
+    .icon-image .hover-image{
+      position:absolute;
+      height:350px;
+      width:300px;
+      bottom:100px;
+      left:50%;
+      z-index:0;
+      transform:translateX(-50%);
+      border-radius:25px;
+      pointer-events:none;
+      box-shadow:0 5px 10px rgba(0,0,0,0.15);
+      transition:0.5s;
     }
-
-    .card-content-container {
-      position: relative;
-      z-index: 2;
+    .icon-image:hover .hover-image{
+      left:-200px;
+      z-index:12;
+      transform:translateX(80px);
     }
-
-    .card-cover {
-      height: 120px;
-      margin: 5px;
-      background-image: url("https://ik.imagekit.io/85euohcfb/BD%20Flag.jpeg?updatedAt=1752132002255");
-      background-size: cover;
-      background-position: center;
-      border-top-left-radius: 11px;
-      border-top-right-radius: 11px;
+    .hover-image img{
+      height:100%;
+      width:100%;
+      object-fit:cover;
+      border:3px solid #fff;
+      border-radius:25px;
     }
-
-    .card-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid white;
-      margin: -50px auto 10px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    .content{
+      position:absolute;
+      width:100%;
+      bottom:-10px;
+      padding:0 10px;
     }
-
-    .card-fullname {
-      font-size: 22px;
-      font-weight: bold;
-      color: #111;
+    .details{
+      background:#fff;
+      padding:10px;
+      border-radius:12px;
+      text-align:center;
+      opacity:0;
+      transform:translateY(10px);
+      transition:0.5s;
     }
-
-    .card-jobtitle {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 15px;
+    .icon-image:hover .details{
+      opacity:1;
+      transform:translateY(0);
     }
-
-    .card-content {
-      padding: 0 20px 20px;
-    }
-
-    .card-desc {
-      font-size: 14px;
-      line-height: 1.5;
-      color: #555;
-    }
-
-    .card-buttons {
-      display: flex;
-      justify-content: space-around;
-      padding: 20px;
-      border-top: 2px solid #eee;
-     margin: 5px;
-    }
-
-    .btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: #333;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .btn-circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 6px;
-    }
-
-    .btn-circle img {
-      width: 26px;
-      height: 26px;
-      filter: brightness(0) invert(1);
-    }
-
-    .call .btn-circle {
-      background: linear-gradient(135deg, #4CAF50, #2E7D32);
-    }
-
-    .facebook .btn-circle {
-      background: linear-gradient(135deg, #3b5998, #1d3557);
-    }
-
-    .whatsapp .btn-circle {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-    }
-
-    .email .btn-circle {
-      background: linear-gradient(135deg, #FF6D00, #D84315);
-    }
+    .name{font-size:20px;font-weight:500;}
+    .job{font-size:17px;color:#0396FF;}
   </style>
 </head>
+
 <body>
 
-  <div class="card">
-    <div class="card-content-container">
-      <div class="card-cover"></div>
-      <img class="card-avatar" src="https://raw.githubusercontent.com/newsbase/itc/refs/heads/main/profile1.jpg" alt="Md. Jewel Rana">
-      <div class="card-fullname">RRF Phonebook</div>
-      <div class="card-jobtitle">App Developer </div>
-      <div class="card-content">
-        <p class="card-desc">
-          NewsBase IT Company. Here various types of phonebook applications are developed at low cost. Contact us to develop the app.
-        </p>
-      </div>
+<div class="container">
 
-      <div class="card-buttons">
-        <a class="btn call" href="#" onclick="makeCall()">
-          <div class="btn-circle">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Call" />
-          </div>
-          Call
-        </a>
-        <a class="btn facebook" href="#" onclick="openFacebook()">
-          <div class="btn-circle">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook" />
-          </div>
-          Facebook
-        </a>
-        <a class="btn whatsapp" href="#" onclick="openWhatsApp()">
-          <div class="btn-circle">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" />
-          </div>
-          WhatsApp
-        </a>
-        <a class="btn email" href="#" onclick="openEmail()">
-          <div class="btn-circle">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/apple-mail.png" alt="Email" />
-          </div>
-          Email
-        </a>
+  <!-- 1 -->
+  <div class="icon-image">
+    <div class="icon">
+      <img src="https://i.pravatar.cc/100?img=1">
+    </div>
+    <div class="hover-image">
+      <img src="https://i.pravatar.cc/300?img=1">
+      <div class="content">
+        <div class="details">
+          <div class="name">David Marloo</div>
+          <div class="job">Designer || Developer</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <script>
-    function makeCall() {
-      const number = "+880017";
-      window.location.href = "tel:" + number;
-    }
+  <!-- 2 -->
+  <div class="icon-image">
+    <div class="icon">
+      <img src="https://i.pravatar.cc/100?img=5">
+    </div>
+    <div class="hover-image">
+      <img src="https://i.pravatar.cc/300?img=5">
+      <div class="content">
+        <div class="details">
+          <div class="name">Lilly Carls</div>
+          <div class="job">Blogger || Designer</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function openFacebook() {
-      const url = "https://facebook.com/";
-      const fbIntent = "fb://facewebmodal/f?href=" + url;
-      try {
-        window.location.href = fbIntent;
-        setTimeout(() => { window.location.href = url; }, 500);
-      } catch {
-        window.location.href = url;
-      }
-    }
+  <!-- 3 -->
+  <div class="icon-image">
+    <div class="icon">
+      <img src="https://i.pravatar.cc/100?img=8">
+    </div>
+    <div class="hover-image">
+      <img src="https://i.pravatar.cc/300?img=8">
+      <div class="content">
+        <div class="details">
+          <div class="name">Stephen Bald</div>
+          <div class="job">Designer || Developer</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function openWhatsApp() {
-      const number = "88017";
-      const webUrl = "https://wa.me/" + number;
-      const appIntent = "intent://send?phone=" + number + "#Intent;package=com.whatsapp;scheme=smsto;end";
-      try {
-        window.location.href = appIntent;
-        setTimeout(() => { window.location.href = webUrl; }, 500);
-      } catch {
-        window.location.href = webUrl;
-      }
-    }
+  <!-- 4 -->
+  <div class="icon-image">
+    <div class="icon">
+      <img src="https://i.pravatar.cc/100?img=12">
+    </div>
+    <div class="hover-image">
+      <img src="https://i.pravatar.cc/300?img=12">
+      <div class="content">
+        <div class="details">
+          <div class="name">Mike Tyson</div>
+          <div class="job">Photographer || Youtuber</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function openEmail() {
-      const email = "jewel.raj.bp@gmail.com";
-      const subject = encodeURIComponent("Hello Jewel Rana");
-      const body = encodeURIComponent("Hi, I wanted to contact you...");
-      const mailto = `mailto:${email}?subject=${subject}&body=${body}`;
-      window.location.href = mailto;
-    }
-  </script>
+  <!-- 5 -->
+  <div class="icon-image">
+    <div class="icon">
+      <img src="https://i.pravatar.cc/100?img=15">
+    </div>
+    <div class="hover-image">
+      <img src="https://i.pravatar.cc/300?img=15">
+      <div class="content">
+        <div class="details">
+          <div class="name">Emma Oliva</div>
+          <div class="job">Developer || Designer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="icon-image">
+    <div class="icon">
+      <img src="https://i.pravatar.cc/100?img=20">
+    </div>
+    <div class="hover-image">
+      <img src="https://i.pravatar.cc/300?img=20">
+      <div class="content">
+        <div class="details">
+          <div class="name">David Marloo</div>
+          <div class="job">Blogger || Youtuber</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>
