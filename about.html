@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Md. Jewel Rana - Profile Card</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap" rel="stylesheet" />
-
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 20px;
       font-family: "Jost", sans-serif;
-      background: url("https://images.unsplash.com/photo-1542281286-9e0a16bb7366") no-repeat center center fixed;
+      background: url("https://images.unsplash.com/photo-1485217988980-11786ced9454") no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -24,22 +22,60 @@
 
     .card {
       max-width: 360px;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 0 0 8px rgba(255,255,255,0.15);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
       position: relative;
-      z-index: 1;
+      background: #07182E;
+      border-radius: 16px;
+      overflow: hidden;
       text-align: center;
+      color: white;
+      z-index: 1;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%) rotate(0deg);
+      width: 120px;
+      height: 130%;
+      background: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+      animation: rotateBG 3s linear infinite;
+      border-radius: 20px;
+      z-index: 0;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      background: #ffffff;
+      border-radius: 11px;
+      z-index: 1;
+    }
+
+    @keyframes rotateBG {
+      0% {
+        transform: translateX(-50%) rotate(0deg);
+      }
+      100% {
+        transform: translateX(-50%) rotate(360deg);
+      }
+    }
+
+    .card-content-container {
+      position: relative;
+      z-index: 2;
     }
 
     .card-cover {
       height: 120px;
-      background-image: url("https://images.unsplash.com/photo-1485217988980-11786ced9454");
+      margin: 5px;
+      background-image: url("https://ik.imagekit.io/85euohcfb/BD%20Flag.jpeg?updatedAt=1752132002255");
       background-size: cover;
       background-position: center;
+      border-top-left-radius: 11px;
+      border-top-right-radius: 11px;
     }
 
     .card-avatar {
@@ -52,6 +88,163 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
 
+    .card-fullname {
+      font-size: 22px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .card-jobtitle {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 15px;
+    }
+
+    .card-content {
+      padding: 0 20px 20px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .card-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      border-top: 2px solid #eee;
+     margin: 5px;
+    }
+
+    .btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-circle img {
+      width: 26px;
+      height: 26px;
+      filter: brightness(0) invert(1);
+    }
+
+    .call .btn-circle {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    }
+
+    .facebook .btn-circle {
+      background: linear-gradient(135deg, #3b5998, #1d3557);
+    }
+
+    .whatsapp .btn-circle {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+
+    .email .btn-circle {
+      background: linear-gradient(135deg, #FF6D00, #D84315);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-content-container">
+      <div class="card-cover"></div>
+      <img class="card-avatar" src="https://raw.githubusercontent.com/newsbase/itc/refs/heads/main/profile1.jpg" alt="Md. Jewel Rana">
+      <div class="card-fullname">NewsBase IT </div>
+      <div class="card-jobtitle">Web & App Developer </div>
+      <div class="card-content">
+        <p class="card-desc">
+          NewsBase IT Company. Here various types of phonebook applications are developed at low cost. Contact us to develop the app.
+        </p>
+      </div>
+
+      <div class="card-buttons">
+        <a class="btn call" href="#" onclick="makeCall()">
+          <div class="btn-circle">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Call" />
+          </div>
+          Call
+        </a>
+        <a class="btn facebook" href="#" onclick="openFacebook()">
+          <div class="btn-circle">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook" />
+          </div>
+          Facebook
+        </a>
+        <a class="btn whatsapp" href="#" onclick="openWhatsApp()">
+          <div class="btn-circle">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" />
+          </div>
+          WhatsApp
+        </a>
+        <a class="btn email" href="#" onclick="openEmail()">
+          <div class="btn-circle">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/apple-mail.png" alt="Email" />
+          </div>
+          Email
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function makeCall() {
+      const number = "+880017";
+      window.location.href = "tel:" + number;
+    }
+
+    function openFacebook() {
+      const url = "https://facebook.com/";
+      const fbIntent = "fb://facewebmodal/f?href=" + url;
+      try {
+        window.location.href = fbIntent;
+        setTimeout(() => { window.location.href = url; }, 500);
+      } catch {
+        window.location.href = url;
+      }
+    }
+
+    function openWhatsApp() {
+      const number = "88017";
+      const webUrl = "https://wa.me/" + number;
+      const appIntent = "intent://send?phone=" + number + "#Intent;package=com.whatsapp;scheme=smsto;end";
+      try {
+        window.location.href = appIntent;
+        setTimeout(() => { window.location.href = webUrl; }, 500);
+      } catch {
+        window.location.href = webUrl;
+      }
+    }
+
+    function openEmail() {
+      const email = "jewel.raj.bp@gmail.com";
+      const subject = encodeURIComponent("Hello Jewel Rana");
+      const body = encodeURIComponent("Hi, I wanted to contact you...");
+      const mailto = `mailto:${email}?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+    }
+  </script>
+
+</body>
+</html>
     .card-fullname {
       font-size: 22px;
       font-weight: bold;
