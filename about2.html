@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Profile Card</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin: 0;
+  background: #020617;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial;
+}
+
+/* CARD WRAPPER */
+.card-wrapper {
+  position: relative;
+  border-radius: 20px;
+  padding: 2px;
+  overflow: hidden;
+}
+
+/* CARD BORDER ANIMATION */
+.card-wrapper::before {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background: conic-gradient(
+    transparent,
+    #00ffff,
+    transparent,
+    #00ffff
+  );
+  animation: rotate 4s linear infinite;
+}
+
+.card-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #0b132b;
+  border-radius: 18px;
+  z-index: 1;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  background: #0b132b;
+  border-radius: 20px;
+  padding: 40px 20px;
+  width: 280px;
+  text-align: center;
+  z-index: 2;
+}
+
+/* IMAGE BOX */
+.img-box {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+/* IMAGE */
+.img-box img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Gradient Arc 1 */
+.img-box::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + 7px);
+  height: calc(100% + 7px);
+  border-radius: 50%;
+  background: conic-gradient(
+    transparent 0deg,
+    #ff00cc 60deg,
+    #3333ff 120deg,
+    #00ffcc 160deg,
+    transparent 180deg
+  );
+  transform: translate(-50%, -50%);
+  animation: spin1 3s linear infinite;
+  z-index: 1;
+}
+
+/* Gradient Arc 2 */
+.img-box::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + 7px);
+  height: calc(100% + 7px);
+  border-radius: 50%;
+  background: conic-gradient(
+    transparent 180deg,
+    #00ffcc 240deg,
+    #ffcc00 280deg,
+    #ff00cc 320deg,
+    transparent 360deg
+  );
+  transform: translate(-50%, -50%);
+  animation: spin2 3s linear infinite;
+  z-index: 1;
+}
+
+/* ANIMATION */
+@keyframes spin1 {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes spin2 {
+  from { transform: translate(-50%, -50%) rotate(360deg); }
+  to { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* TEXT */
+h3 {
+  color: #00ffff;
+  margin-top: 10px;
+}
+
+p {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* ICONS */
+.icons {
+  margin-top: 20px;
+}
+
+.icons a {
+  text-decoration: none;
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #00ffff;
+  color: #00ffff;
+  margin: 0 8px;
+  transition: 0.3s;
+}
+
+.icons a:hover {
+  background: #00ffff;
+  color: #000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-wrapper">
+  <div class="card">
+
+    <div class="img-box">
+      <img src="https://i.ibb.co/svHHtGfg/1001087129.jpg">
+    </div>
+
+    <h3>Jewel Rana</h3>
+    <p>Android & Web Developer</p>
+
+    <div class="icons">
+      <a href="tel:01723580852"><i class="fas fa-phone"></i></a>
+      <a href="mailto:jewel.raj.bp@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://facebook.com/me.jnrana"><i class="fas fa-comment"></i></a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
