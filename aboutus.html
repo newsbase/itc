@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Premium Glassmorphism Card Flip</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Global Styles */
+        /* গ্লোবাল এবং ব্যাকগ্রাউন্ড সেটআপ */
         * {
             margin: 0;
             padding: 0;
@@ -15,279 +15,322 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: #f8fafc;
+            background: #020b18 url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1920&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow-x: hidden;
+            position: relative;
+            overflow: hidden;
         }
 
-        .container {
-            max-width: 1200px;
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(10, 34, 64, 0.6), #020813 90%);
+            z-index: 0;
+        }
+
+        /* --- ৩D ফ্লিপ কন্টেইনার --- */
+        .flip-container {
+            perspective: 1500px;
+            width: 440px;
+            max-width: 100%;
+            height: 500px; /* উচ্চতা আরও কমিয়ে কম্প্যাক্ট করা হয়েছে */
+            z-index: 1;
+        }
+
+        .card-flipper {
             width: 100%;
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 40px;
-            align-items: center;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Left Side: 3D Profile Card */
-        .card-wrapper {
-            perspective: 1000px;
+        .flip-container.flipped .card-flipper {
+            transform: rotateY(180deg);
+        }
+
+        /* এপিঠ-ওপিঠ দুই পিঠের কমন কাঁচের স্টাইল */
+        .glass-panel {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            padding: 30px 25px;
             display: flex;
-            justify-content: center;
-            opacity: 0;
-            transform: translateX(-50px);
-            animation: fadeInUp 1s 0.2s forwards cubic-bezier(0.4, 0, 0.2, 1);
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
         }
 
-        .profile-card {
+        .glass-panel::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.03) 50%, transparent 55%);
+            transform: rotate(-45deg);
+            pointer-events: none;
+        }
+
+        /* --- সামনের পিঠ (Front Side) --- */
+        .card-front {
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+
+        .inner-profile-box {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 10px;
             text-align: center;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease;
         }
 
-        /* প্রোফাইল ইমেজ স্টাইল */
-        .profile-img {
-            width: 150px; 
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #3b82f6;
-            transform: translateZ(40px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Right Side: Text Content */
-        .about-text {
-            opacity: 0;
-            transform: translateX(50px);
-            animation: fadeInUp 1s forwards cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* নাম ও টাইটেল গ্রুপ */
-        .identity-group {
-            margin-bottom: 25px;
-        }
-
-        .profile-name {
-            display: block;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 2px;
-            background: linear-gradient(to right, #fff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .profile-title {
-            display: block;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #3b82f6;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 18px;
-        }
-
-        /* --- আল্ট্রা মডার্ন গ্লাস-মরফিজম বাটন --- */
-        .contact-buttons {
-            display: flex;
-            gap: 14px;
-        }
-
-        .circle-btn {
+        /* সাই-ফাই নিয়ন সার্কেল ফ্রেম */
+        .avatar-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;  
-            height: 44px; 
+        }
+
+        .avatar-glow-ring {
+            position: absolute;
+            inset: 0;
             border-radius: 50%;
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            border: 5px double rgba(132, 204, 222, 0.4);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 
+                        inset 0 0 15px rgba(59, 130, 246, 0.3);
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
         }
 
-        /* মডার্ন নিয়ন বর্ডার এবং আইকন কালার */
-        .btn-call { 
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #10b981;
-        }      
-        .btn-whatsapp { 
-            border: 1px solid rgba(37, 211, 102, 0.4);
-            color: #25d366;
-        }  
-        .btn-email { 
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #ef4444;
-        }     
-        .btn-facebook { 
-            border: 1px solid rgba(24, 119, 242, 0.4);
-            color: #1877f2;
-        }  
-
-        /* হোভার ইফেক্টস: ৩ বার ঘূর্ণন, ব্যাকগ্রাউন্ড ফিল এবং নিয়ন গ্লো */
-        .circle-btn:hover {
-            transform: rotateY(1080deg) scale(1.1);
-            color: #fff;
-        }
-        
-        .btn-call:hover { 
-            background: #10b981;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
-            border-color: #10b981;
-        }
-        .btn-whatsapp:hover { 
-            background: #25d366;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
-            border-color: #25d366;
-        }
-        .btn-email:hover { 
-            background: #ef4444;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
-            border-color: #ef4444;
-        }
-        .btn-facebook:hover { 
-            background: #1877f2;
-            box-shadow: 0 0 20px rgba(24, 119, 242, 0.6);
-            border-color: #1877f2;
+        .avatar-glow-ring::before {
+            content: '• • • • • •';
+            position: absolute;
+            color: #84ccde;
+            font-size: 9px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 16px;
+            text-shadow: 0 0 8px #3b82f6;
+            opacity: 0.7;
         }
 
-        /* ডিভাইডার লাইন */
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, rgba(59, 130, 246, 0.2), transparent);
-            margin: 30px 0;
-            width: 80%;
+        .profile-img {
+            width: 124px;
+            height: 124px;
+            border-radius: 50%;
+            object-fit: cover;
+            z-index: 1;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* আমাদের সম্পর্কে সেকশন */
-        .tag {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+        .name {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        .about-text h1 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .about-text p {
+        .designation {
+            font-size: 0.9rem;
             color: #94a3b8;
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-weight: 400;
+            margin-bottom: 15px;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        /* সোশ্যাল বাটন রো */
+        .social-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 15px;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 30px;
-            }
-            .contact-buttons {
-                justify-content: center;
-            }
-            .divider {
-                width: 100%;
-            }
+        .glossy-icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: #a5f3fc;
+            font-size: 15px;
+            text-decoration: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glossy-icon-btn:hover {
+            transform: translateY(-2px);
+            color: #ffffff;
+            border-color: rgba(132, 204, 222, 0.6);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4), 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        /* --- পেছনের পিঠ (Back Side) --- */
+        .card-back {
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+
+        .about-section {
+            width: 100%;
+            text-align: center; /* কন্টেন্ট সেন্টারে রাখার জন্য */
+            margin-top: 5px;
+        }
+
+        .section-tag {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+            text-align: center; /* সেন্টার এলাইন */
+        }
+
+        .section-title {
+            font-size: 1.4rem; /* সাইজ ছোট করা হয়েছে */
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* সেন্টারে নিয়ন উজ্জ্বল আন্ডারলাইন */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+            box-shadow: 0 0 12px #38bdf8;
+            border-radius: 2px;
+        }
+
+        .description {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: justify;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        /* --- অ্যাকশন ফ্লিপ বাটনসমূহ (একদম কাছাকাছি দূরত্বে লকড) --- */
+        .action-btn {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+            margin-top: auto; /* ফ্লেক্স বক্সের নিচের অংশ টাইট রাখবে */
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(56, 189, 248, 0.4);
+            transform: scale(1.02);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- বাম পাশের ছবি -->
-        <div class="card-wrapper">
-            <div class="profile-card" id="threeDCard">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" alt="Profile" class="profile-img">
-            </div>
-        </div>
+    <div class="flip-container" id="profileCard">
+        <div class="card-flipper">
+            
+            <div class="glass-panel card-front">
+                <div class="inner-profile-box">
+                    <div class="avatar-container">
+                        <div class="avatar-glow-ring"></div>
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" alt="Md. Mozammel Hoque" class="profile-img">
+                    </div>
+                    <h2 class="name">মোঃ মোজাম্মেল হক</h2>
+                    <p class="designation">উদ্যোক্তা ও পরিকল্পনাকারী</p>
 
-        <!-- ডান পাশের কন্টেন্ট -->
-        <div class="about-text">
-            <!-- নাম, টাইটেল ও আধুনিক কন্টাক্ট বাটন -->
-            <div class="identity-group">
-                <h1 class="profile-name">মোঃ মোজাম্মেল হক</h1>
-                <span class="profile-title">উদ্যোক্তা ও পরিকল্পনাকারী</span>
-                
-                <div class="contact-buttons">
-                    <a href="tel:+880123456789" class="circle-btn btn-call" title="কল করুন">
-                        <i class="fa-solid fa-phone"></i>
-                    </a>
-                    <a href="https://wa.me/880123456789" target="_blank" class="circle-btn btn-whatsapp" title="হোয়াটসঅ্যাপ">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:example@email.com" class="circle-btn btn-email" title="ইমেইল পাঠান">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                    <a href="https://facebook.com/yourusername" target="_blank" class="circle-btn btn-facebook" title="ফেসবুক প্রোফাইল">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
+                    <div class="social-row">
+                        <a href="tel:+8801717137184" class="glossy-icon-btn" title="কল করুন">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <a href="https://wa.me/+8801717137184" target="_blank" class="glossy-icon-btn" title="হোয়াটসঅ্যাপ">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto: mdmojammel haq19@gmail.com" class="glossy-icon-btn" title="ইমেইল">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1BLmj5Art5/" target="_blank" class="glossy-icon-btn" title="ফেসবুক">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
                 </div>
+
+                <button class="action-btn" onclick="toggleFlip()">
+                    About Us <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
 
-            <!-- বিভাজক রেখা -->
-            <div class="divider"></div>
+            <div class="glass-panel card-back">
+                <div class="about-section">
+                    <span class="section-tag">About Us</span>
+                    <h2 class="section-title">নতুন কিছু তৈরি করাই আমাদের লক্ষ্য</h2>
+                    <p class="description">
+                        একটি চমৎকার আইডিয়াকে বাস্তবে রূপ দেওয়ার পেছনে প্রয়োজন সঠিক দিকনির্দেশনা। একজন মূল পরিকল্পনাকারী হিসেবে, আধুনিক প্রযুক্তির সাহায্যে একটি জটিল সমস্যার সহজ সমাধান করাই ছিল আমার উদ্দেশ্য। আমার পরিকল্পনা ও সার্বিক তত্ত্বাবধানে, ডেভলপমেন্ট টিম কোডিংয়ের উচ্চমান এবং দৃষ্টিনন্দন ডিজাইনের সমন্বয়ে এই অ্যাপটি সফলভাবে সম্পন্ন করেছে।
+                    </p>
+                </div>
 
-            <!-- আমাদের সম্পর্কে অংশ -->
-            <span class="tag">আমাদের সম্পর্কে</span>
-            <h1>নতুন কিছু তৈরি করাই আমাদের লক্ষ্য</h1>
-            <p>একটি চমৎকার আইডিয়াকে বাস্তবে রূপ দেওয়ার পেছনে প্রয়োজন সঠিক দিকনির্দেশনা। একজন মূল পরিকল্পনাকারী হিসেবে, আধুনিক প্রযুক্তির সাহায্যে একটি জটিল সমস্যার সহজ সমাধান করাই ছিল আমার উদ্দেশ্য। আমার পরিকল্পনা ও সার্বিক তত্ত্বাবধানে, ডেভলপমেন্ট টিম কোডিংয়ের উচ্চমান এবং দৃষ্টিনন্দন ডিজাইনের সমন্বয়ে এই অ্যাপটি সফলভাবে সম্পন্ন করেছে।</p>
+                <button class="action-btn" onclick="toggleFlip()">
+                    <i class="fa-solid fa-arrow-left"></i> Go Back
+                </button>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // --- JavaScript for 3D Card Hover Effect ---
-        const card = document.getElementById('threeDCard');
-        const wrapper = card.parentElement;
-
-        wrapper.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            
-            const x = e.clientX - rect.left - (rect.width / 2);
-            const y = e.clientY - rect.top - (rect.height / 2);
-            
-            const degX = -y / 15; 
-            const degY = x / 15;
-
-            card.style.transform = `rotateX(${degX}deg) rotateY(${degY}deg)`;
-        });
-
-        wrapper.addEventListener('mouseleave', () => {
-            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        });
+        function toggleFlip() {
+            const card = document.getElementById('profileCard');
+            card.classList.toggle('flipped');
+        }
     </script>
 </body>
 </html>
